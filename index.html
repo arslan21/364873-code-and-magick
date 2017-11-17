@@ -185,11 +185,7 @@
 'use strict';
   var firballSize = 22;                                                         //Размер фаербола
   var getFireballSpeed = function(left) {                                       //Скорость полёта фаербола
-    if (left) {
-      return 5;                                                                 //Скорость по ветру
-    } else {
-      return 2;                                                                 //Скорось протв ветра
-    };
+    return left ? 5 : 2;
   };
   var wizardSpeed = 3;                                                          //Скорость героя
   var wizardWidth = 70;                                                         //Ширина героя
