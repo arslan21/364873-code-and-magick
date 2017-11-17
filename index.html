@@ -189,14 +189,14 @@
   };
   var wizardSpeed = 3;                                                          //Скорость героя
   var wizardWidth = 70;                                                         //Ширина героя
-  var getWizardHeight = function (width) {
-    return 1.377 * width;
+  var getWizardHeight = function (wizardWidth) {
+    return 1.377 * wizardWidth;
   };
   var getWizardX = function (width) {                                            //Положение героя по X
-    return width / 2;
+    return (width - wizardWidth) / 2;
   };
   var getWizardY = function (height) {                                            //Положение героя по Y
-    return 2 * height / 3;
+    return (2 * height / 3) - getWizardHeight(wizardWidth) / 2;
   };
 </script>
 
