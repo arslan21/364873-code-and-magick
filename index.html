@@ -181,6 +181,25 @@
   </div>
 </template>
 
+<script type="text/javascript">
+'use strict';
+  var firballSize = 22;                                                         //Размер фаербола
+  var getFireballSpeed = function(left) {                                       //Скорость полёта фаербола
+    return left ? 5 : 2;
+  };
+  var wizardSpeed = 3;                                                          //Скорость героя
+  var wizardWidth = 70;                                                         //Ширина героя
+  var getWizardHeight = function (wizardWidth) {
+    return 1.377 * wizardWidth;
+  };
+  var getWizardX = function (width) {                                            //Положение героя по X
+    return (width - wizardWidth) / 2;
+  };
+  var getWizardY = function (height) {                                            //Положение героя по Y
+    return (2 * height / 3) - getWizardHeight(wizardWidth) / 2;
+  };
+</script>
+
 <script src="js/game.js"></script>
 
 </body>

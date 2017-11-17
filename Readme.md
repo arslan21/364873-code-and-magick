@@ -1,6 +1,7 @@
 # Учебный проект «Код и Магия» [![Build status][travis-image]][travis-url]
 
 * Студент: [Руслан Шедиков](https://up.htmlacademy.ru/javascript/11/user/364873).
+* Наставник: [Евгений Сорокин](https://htmlacademy.ru/profile/id538633).
 
 ---
 
