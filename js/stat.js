@@ -25,42 +25,22 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Ура вы победили!', 150, 40);
   ctx.fillText('Список результатов:', 150, 60);
 
-  /*  Сортировка по увеличению, работае по массиву arrForSort,
-  действия в массиве dependentArr дуюлируют действия в массиве arrForSort по переменным i и j,
-  возвращает в том числе максимальное и минимальное значение */
-  function sortingTwoArrs(arrForSort, dependentArr) {
-    for (var i = 0; i < arrForSort.length - 1; i++) {
-      var minArrForSort = arrForSort[i]; // Объявляем переменную для хранения минимального значения,
-      var minDependentArr = dependentArr[i];// Аналогично с именем
-      // Запускаем j цикл по массиву от следующего до последнего, j - переменная сравнения
-      for (var j = i + 1; j < arrForSort.length; j++) {
-        // Сравниваем каждую переменную сравнения с минимальным значением. Если она меньше, то
-        if (arrForSort[j] < minArrForSort) {
-          minArrForSort = arrForSort[j]; // переопределяем переменную минимального значения
-          minDependentArr = dependentArr[j];
-          var swapArrForSort = arrForSort[i]; // Объявляем временную переменную для хранения заменяемого значения
-          var swapDependentArr = dependentArr[i];
-          arrForSort[i] = minArrForSort; // Переопределяем заменяемую переменную минимальным значением
-          dependentArr[i] = minDependentArr;
-          arrForSort[j] = swapArrForSort; // Возвращаем заменяемую переменную на место переменной сравнения. Замена произведена
-          dependentArr[j] = swapDependentArr;
-        }
-      }
+  //  объединение двух массивов в один
+  var data = times.map(function(item, index) {
+    return {times: item, value: names[index]}
+  });
+  //  сортировка
+  data.sort(function (a, b) {
+    if (a.times > b.times) {
+      return 1;
     }
-    return {
-      arrForSort: arrForSort, // Отсортированный массив
-      dependentArr: dependentArr, // Зависимый массив
-      minValue: arrForSort[0], //  Минимальное значение
-      minDependent: dependentArr[0],
-      maxValue: arrForSort[arrForSort.length - 1], // максимальное значение
-      maxDependent: dependentArr[arrForSort.length - 1]
-    };
-  };
+    if (a.times < b.times) {
+      return -1;
+    }
+    return 0;
+  });
 
-  var timesNames = sortingTwoArrs(times, names);// Объект содержащий массивы times, names, и их макимальные и минимальные начения
-
-  var timeMax = timesNames.maxValue;// Масимальное значение времени
-  // console.log(timesNames)
+  var timeMax = data[data.length - 1].times;// Масимальное значение времени
 
   // Использование максимального значения для построения гистограммы
   var histogramHeight = 150;// Высота поля гистограммы, px
@@ -70,18 +50,18 @@ window.renderStatistics = function (ctx, names, times) {
   var histogramStartX = 150;// Начальная бара гистограммы(различна для каждого бара), px
   var histogramStartY = 250;// Нулевое значение гистограммы по У, px
   // Построение диаграммы
-  for (var i = 0; i < times.length; i++) {
-    var barHeight = times[i] * step;// Высота конкретного бара гисограммы, px
+  for (var i = 0; i < data.length; i++) {
+    var barHeight = data[i].times * step;// Высота конкретного бара гисограммы, px
     ctx.fillStyle = rndTransparencyGeneration(0, 0, 255);// Цвет баров гистограммы, случайной прозрачности
     // В случае нахождения Вашего результата
-    if (names[i] === 'Вы') {
+    if (data[i].value === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';// Изменяем цвет бара
-      ctx.fillText('Ваш результат: ' + Math.floor(times[i]), 310, 40);// И выводим текст с Вашим результатом
+      ctx.fillText('Ваш результат: ' + Math.floor(data[i].times), 310, 40);// И выводим текст с Вашим результатом
     }
     ctx.fillRect(histogramStartX, histogramStartY - barHeight, barwidth, barHeight);// Построение бара
     ctx.fillStyle = 'Black';// Цвет текста
-    ctx.fillText(Math.floor(times[i]), histogramStartX, histogramStartY - barHeight - 20);// Результат игрока
-    ctx.fillText(names[i], histogramStartX, histogramStartY + 20);
+    ctx.fillText(Math.floor(data[i].times), histogramStartX, histogramStartY - barHeight - 20);// Результат игрока
+    ctx.fillText(data[i].value, histogramStartX, histogramStartY + 20);
     histogramStartX += (barwidth + histogrtamDistance);// Смещение следущего бара
   }
 };
