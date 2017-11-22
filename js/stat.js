@@ -14,9 +14,9 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillRect(CloudX, CloudY, 420, 270);// Само облако
 
   // Генератор цвета случайной прозрачности
-  var rndTransparencyGeneration = function (r, g, b) {
+  function rndTransparencyGeneration(r, g, b) {
     var a = Math.ceil(Math.random() * 10) / 10;// Генерация случайного числа (0.0, 1.0]
-    return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';// Запись в переменную (typeof == string)
+    return `rgba(${r}, ${g}, ${b}, ${a})`; // Возврашает цвет в rgba формате (typeof == string)
   };
 
   // Сообщение
@@ -28,7 +28,7 @@ window.renderStatistics = function (ctx, names, times) {
   /*  Сортировка по увеличению, работае по массиву arrForSort,
   действия в массиве dependentArr дуюлируют действия в массиве arrForSort по переменным i и j,
   возвращает в том числе максимальное и минимальное значение */
-  var sortingTwoArrs = function (arrForSort, dependentArr) {
+  function sortingTwoArrs(arrForSort, dependentArr) {
     for (var i = 0; i < arrForSort.length - 1; i++) {
       var minArrForSort = arrForSort[i]; // Объявляем переменную для хранения минимального значения,
       var minDependentArr = dependentArr[i];// Аналогично с именем
@@ -69,11 +69,10 @@ window.renderStatistics = function (ctx, names, times) {
   var step = histogramHeight / timeMax;// Шаг, px
   var histogramStartX = 150;// Начальная бара гистограммы(различна для каждого бара), px
   var histogramStartY = 250;// Нулевое значение гистограммы по У, px
-  var barColor = rndTransparencyGeneration(0, 0, 255); // Цвет бара
   // Построение диаграммы
   for (var i = 0; i < times.length; i++) {
     var barHeight = times[i] * step;// Высота конкретного бара гисограммы, px
-    ctx.fillStyle = barColor;// Цвет баров гистограммы, случайной прозрачности
+    ctx.fillStyle = rndTransparencyGeneration(0, 0, 255);// Цвет баров гистограммы, случайной прозрачности
     // В случае нахождения Вашего результата
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';// Изменяем цвет бара
