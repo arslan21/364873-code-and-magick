@@ -16,8 +16,8 @@ window.renderStatistics = function (ctx, names, times) {
   // Генератор цвета случайной прозрачности
   function rndTransparencyGeneration(r, g, b) {
     var a = Math.ceil(Math.random() * 10) / 10;// Генерация случайного числа (0.0, 1.0]
-    return `rgba(${r}, ${g}, ${b}, ${a})`; // Возврашает цвет в rgba формате (typeof == string)
-  };
+    return 'rgba(' + [r, g, b, a].join(',') + ')'; // Возврашает цвет в rgba формате (typeof == string)
+  }
 
   // Сообщение
   ctx.fillStyle = 'red';
@@ -26,8 +26,8 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Список результатов:', 150, 60);
 
   //  объединение двух массивов в один
-  var data = times.map(function(item, index) {
-    return {times: item, value: names[index]}
+  var data = times.map(function (item, index) {
+    return {times: item, value: names[index]};
   });
   //  сортировка
   data.sort(function (a, b) {
