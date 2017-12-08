@@ -87,8 +87,8 @@ userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
 //  Открыие и закрытие диалогового окна
 
-var setupOpen = document.querySelector('.setup-open');
-var setupClose = userDialog.querySelector('.setup-close');
+var userDialogOpen = document.querySelector('.setup-open');
+var userDialogClose = userDialog.querySelector('.setup-close');
 
 function onPopupEscPress(evt) {
   if (evt.keyCode === ESC_KEYCODE) {
@@ -108,21 +108,21 @@ function closePopup() {
   document.removeEventListener('keydown', onPopupEscPress);
 }
 
-setupOpen.addEventListener('click', function () {
+userDialogOpen.addEventListener('click', function () {
   openPopup();
 });
 
-setupOpen.addEventListener('keydown', function (evt) {
+userDialogOpen.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     openPopup();
   }
 });
 
-setupClose.addEventListener('click', function () {
+userDialogClose.addEventListener('click', function () {
   closePopup();
 });
 
-setupClose.addEventListener('keydown', function (evt) {
+userDialogClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     closePopup();
   }
