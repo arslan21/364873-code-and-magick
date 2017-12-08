@@ -39,6 +39,9 @@ var EYES_COLORS = [
   'yellow'
 ];
 
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
 var userDialog = document.querySelector('.setup');
 userDialog.classList.remove('hidden');
 
@@ -82,15 +85,45 @@ similarWizardList.appendChild(fragment);
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
-//Открыие и закрытие диалогового окна
+//  Открыие и закрытие диалогового окна
 
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = userDialog.querySelector('.setup-close');
 
-setupOpen.addEventListener('click', function() {
-  userDialog.classList.remove('hidden')
+function onPopupEscPress(evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+}
+
+function openPopup() {
+  userDialog.classList.remove('hidden');
+
+  document.addEventListener('keydown', onPopupEscPress);
+}
+
+function closePopup() {
+  userDialog.classList.add('hidden');
+
+  document.removeEventListener('keydown', onPopupEscPress);
+}
+
+setupOpen.addEventListener('click', function () {
+  openPopup();
 });
 
-setupClose.addEventListener('click', function() {
-  userDialog.classList.add('hidden')
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener('click', function () {
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
 });
