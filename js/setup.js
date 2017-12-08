@@ -81,3 +81,16 @@ for (var i = 0; i < wizardList.length; i++) {
 similarWizardList.appendChild(fragment);
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
+
+//Открыие и закрытие диалогового окна
+
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = userDialog.querySelector('.setup-close');
+
+setupOpen.addEventListener('click', function() {
+  userDialog.classList.remove('hidden')
+});
+
+setupClose.addEventListener('click', function() {
+  userDialog.classList.add('hidden')
+});
