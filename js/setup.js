@@ -45,13 +45,13 @@ var FFIREBAL_COLORS = [
   '#5ce6c0',
   '#e848d5',
   '#e6e848'
-]
+];
 
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 
 function getRandomElement(array) {
-  return array[Math.floor(Math.random() * array.length)]
+  return array[Math.floor(Math.random() * array.length)];
 }
 
 var userDialog = document.querySelector('.setup');
@@ -101,7 +101,7 @@ userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
 var userDialogOpen = document.querySelector('.setup-open');
 var userDialogClose = userDialog.querySelector('.setup-close');
-var setupWizardForm = userDialog.querySelector('.setup-wizard-form')
+var setupWizardForm = userDialog.querySelector('.setup-wizard-form');
 var inputUserName = setupWizardForm.querySelector('.setup-user-name');
 
 function onPopupEscPress(evt) {
@@ -110,14 +110,14 @@ function onPopupEscPress(evt) {
   }
 }
 
-function onInputEscPress(evt) {
+function onInputEscPress() {
   inputUserName.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
       evt.preventDefault();
       evt.stopPropagation();
     }
   });
-};
+}
 
 inputUserName.addEventListener('focus', onInputEscPress);
 
@@ -171,14 +171,14 @@ var setupWizardCoat = setupWizardForm.querySelector('.wizard-coat');
 var setupWizardEyes = setupWizardForm.querySelector('.wizard-eyes');
 var setupFireball = setupWizardForm.querySelector('.setup-fireball-wrap');
 
-setupWizardCoat.addEventListener('click', function() {
-  setupWizardCoat.setAttribute('style', 'fill: ' + getRandomElement(COAT_COLORS))
+setupWizardCoat.addEventListener('click', function () {
+  setupWizardCoat.setAttribute('style', 'fill: ' + getRandomElement(COAT_COLORS));
 });
 
-setupWizardEyes.addEventListener('click', function() {
-  setupWizardEyes.setAttribute('style', 'fill: ' + getRandomElement(EYES_COLORS))
+setupWizardEyes.addEventListener('click', function () {
+  setupWizardEyes.setAttribute('style', 'fill: ' + getRandomElement(EYES_COLORS));
 });
 
-setupFireball.addEventListener('click', function() {
-  setupFireball.setAttribute('style', 'background-color: ' + getRandomElement(FFIREBAL_COLORS))
+setupFireball.addEventListener('click', function () {
+  setupFireball.setAttribute('style', 'background-color: ' + getRandomElement(FFIREBAL_COLORS));
 });
