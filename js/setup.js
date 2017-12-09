@@ -50,6 +50,10 @@ var FFIREBAL_COLORS = [
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 
+function getRandomElement(array) {
+  return array[Math.floor(Math.random() * array.length)]
+}
+
 var userDialog = document.querySelector('.setup');
 userDialog.classList.remove('hidden');
 
@@ -58,9 +62,9 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template').c
 
 function getRandomWizard() {
   var rndWizard = {
-    name: WIZARDS_NAMES[Math.floor(Math.random() * WIZARDS_NAMES.length)] + ' ' + WIZARDS_SURNAMES[Math.floor(Math.random() * WIZARDS_SURNAMES.length)],
-    coatColor: COAT_COLORS[Math.floor(Math.random() * COAT_COLORS.length)],
-    eyesColor: EYES_COLORS[Math.floor(Math.random() * EYES_COLORS.length)]
+    name: getRandomElement(WIZARDS_NAMES) + ' ' + getRandomElement(WIZARDS_SURNAMES),
+    coatColor: getRandomElement(COAT_COLORS),
+    eyesColor: getRandomElement(EYES_COLORS)
   };
   return rndWizard;
 }
@@ -155,10 +159,6 @@ inputUserName.addEventListener('invalid', function (evt) {
 var setupWizardCoat = setupWizardForm.querySelector('.wizard-coat');
 var setupWizardEyes = setupWizardForm.querySelector('.wizard-eyes');
 var setupFireball = setupWizardForm.querySelector('.setup-fireball-wrap');
-
-function getRandomElement(array) {
-  return array[Math.floor(Math.random() * array.length)]
-}
 
 setupWizardCoat.addEventListener('click', function() {
   setupWizardCoat.setAttribute('style', 'fill: ' + getRandomElement(COAT_COLORS))
