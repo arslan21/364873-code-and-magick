@@ -55,7 +55,7 @@ function getRandomElement(array) {
 }
 
 var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
+// userDialog.classList.remove('hidden');
 
 var similarWizardList = userDialog.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
@@ -101,12 +101,40 @@ userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
 var userDialogOpen = document.querySelector('.setup-open');
 var userDialogClose = userDialog.querySelector('.setup-close');
+var setupWizardForm = userDialog.querySelector('.setup-wizard-form')
+var inputUserName = setupWizardForm.querySelector('.setup-user-name');
 
 function onPopupEscPress(evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closePopup();
   }
 }
+
+function onInputEscPress(evt) {
+  inputUserName.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      console.log('dbvhbsvkbk');
+    }
+
+  })
+}
+
+
+
+// function onInputEscPress(evt) {
+//   if (evt.keyCode === ESC_KEYCODE) {
+//     inputUserName.addEventListener('keydown', function () {
+//       evt.preventDefault();
+//       evt.stopPropagation();
+//       // console.log('dbvhbsvkbk');
+//     });
+//   } console.log('dbvhbsvkbk');
+// }
+
+inputUserName.addEventListener('focus', onInputEscPress);
+
 
 function openPopup() {
   userDialog.classList.remove('hidden');
@@ -141,9 +169,7 @@ userDialogClose.addEventListener('keydown', function (evt) {
 });
 
 //  валидация форм в окне диалога
-var setupWizardForm = userDialog.querySelector('.setup-wizard-form')
-var inputUserName = setupWizardForm.querySelector('.setup-user-name');
-inputUserName.addEventListener('invalid', function (evt) {
+inputUserName.addEventListener('invalid', function () {
   if (inputUserName.validity.tooShort) {
     inputUserName.setCustomValidity('Введите больше символов');
   } else if (inputUserName.validity.tooLong) {
