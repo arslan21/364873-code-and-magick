@@ -115,26 +115,11 @@ function onInputEscPress(evt) {
     if (evt.keyCode === ESC_KEYCODE) {
       evt.preventDefault();
       evt.stopPropagation();
-      console.log('dbvhbsvkbk');
     }
-
-  })
-}
-
-
-
-// function onInputEscPress(evt) {
-//   if (evt.keyCode === ESC_KEYCODE) {
-//     inputUserName.addEventListener('keydown', function () {
-//       evt.preventDefault();
-//       evt.stopPropagation();
-//       // console.log('dbvhbsvkbk');
-//     });
-//   } console.log('dbvhbsvkbk');
-// }
+  });
+};
 
 inputUserName.addEventListener('focus', onInputEscPress);
-
 
 function openPopup() {
   userDialog.classList.remove('hidden');
