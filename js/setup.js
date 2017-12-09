@@ -127,3 +127,16 @@ userDialogClose.addEventListener('keydown', function (evt) {
     closePopup();
   }
 });
+
+//  валидация форм в окне диалога
+
+var inputUserName = userDialog.querySelector('.setup-user-name');
+inputUserName.addEventListener('invalid', function (evt) {
+  if (inputUserName.validity.tooShort) {
+    inputUserName.setCustomValidity('Введите больше символов');
+  } else if (inputUserName.validity.tooLong) {
+    inputUserName.setCustomValidity('Слишком много символов');
+  } else if (inputUserName.validity.valueMissing) {
+    inputUserName.setCustomValidity('Обязательное поле');
+  }
+});
