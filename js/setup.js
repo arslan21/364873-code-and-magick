@@ -110,27 +110,23 @@ function onPopupEscPress(evt) {
   }
 }
 
-function onInputEscPress() {
-  inputUserName.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      evt.preventDefault();
-      evt.stopPropagation();
-    }
-  });
-}
+inputUserName.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    evt.preventDefault();
+    evt.stopPropagation();
+  }
+});
 
-inputUserName.addEventListener('focus', onInputEscPress);
-
+document.addEventListener('keydown', onPopupEscPress);
 function openPopup() {
   userDialog.classList.remove('hidden');
 
-  document.addEventListener('keydown', onPopupEscPress);
 }
 
 function closePopup() {
   userDialog.classList.add('hidden');
-
   document.removeEventListener('keydown', onPopupEscPress);
+
 }
 
 userDialogOpen.addEventListener('click', function () {
