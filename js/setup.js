@@ -112,7 +112,6 @@ function onPopupEscPress(evt) {
 
 inputUserName.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
-    evt.preventDefault();
     evt.stopPropagation();
   }
 });
@@ -120,13 +119,11 @@ inputUserName.addEventListener('keydown', function (evt) {
 document.addEventListener('keydown', onPopupEscPress);
 function openPopup() {
   userDialog.classList.remove('hidden');
-
 }
 
 function closePopup() {
   userDialog.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
-
 }
 
 userDialogOpen.addEventListener('click', function () {
@@ -151,15 +148,22 @@ userDialogClose.addEventListener('keydown', function (evt) {
 
 //  валидация форм в окне диалога
 inputUserName.addEventListener('invalid', function () {
+
   if (inputUserName.validity.tooShort) {
     inputUserName.setCustomValidity('Введите больше символов');
-  } else if (inputUserName.validity.tooLong) {
+    return;
+  }
+
+  if (inputUserName.validity.tooLong) {
     inputUserName.setCustomValidity('Слишком много символов');
-  } else if (inputUserName.validity.valueMissing) {
+    return;
+  }
+
+  if (inputUserName.validity.valueMissing) {
     inputUserName.setCustomValidity('Обязательное поле');
+    return
   }
 });
-
 
 // Изменение цвета персонажа, глаз, файербола
 
