@@ -39,17 +39,32 @@ var EYES_COLORS = [
   'yellow'
 ];
 
+var FFIREBAL_COLORS = [
+  '#ee4830',
+  '#30a8ee',
+  '#5ce6c0',
+  '#e848d5',
+  '#e6e848'
+];
+
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+function getRandomElement(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
 var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
+// userDialog.classList.remove('hidden');
 
 var similarWizardList = userDialog.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
 function getRandomWizard() {
   var rndWizard = {
-    name: WIZARDS_NAMES[Math.floor(Math.random() * WIZARDS_NAMES.length)] + ' ' + WIZARDS_SURNAMES[Math.floor(Math.random() * WIZARDS_SURNAMES.length)],
-    coatColor: COAT_COLORS[Math.floor(Math.random() * COAT_COLORS.length)],
-    eyesColor: EYES_COLORS[Math.floor(Math.random() * EYES_COLORS.length)]
+    name: getRandomElement(WIZARDS_NAMES) + ' ' + getRandomElement(WIZARDS_SURNAMES),
+    coatColor: getRandomElement(COAT_COLORS),
+    eyesColor: getRandomElement(EYES_COLORS)
   };
   return rndWizard;
 }
@@ -81,3 +96,85 @@ for (var i = 0; i < wizardList.length; i++) {
 similarWizardList.appendChild(fragment);
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
+
+//  Открыие и закрытие диалогового окна
+
+var userDialogOpen = document.querySelector('.setup-open');
+var userDialogClose = userDialog.querySelector('.setup-close');
+var setupWizardForm = userDialog.querySelector('.setup-wizard-form');
+var inputUserName = setupWizardForm.querySelector('.setup-user-name');
+
+function onPopupEscPress(evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+}
+
+inputUserName.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    evt.preventDefault();
+    evt.stopPropagation();
+  }
+});
+
+document.addEventListener('keydown', onPopupEscPress);
+function openPopup() {
+  userDialog.classList.remove('hidden');
+
+}
+
+function closePopup() {
+  userDialog.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+
+}
+
+userDialogOpen.addEventListener('click', function () {
+  openPopup();
+});
+
+userDialogOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+userDialogClose.addEventListener('click', function () {
+  closePopup();
+});
+
+userDialogClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+//  валидация форм в окне диалога
+inputUserName.addEventListener('invalid', function () {
+  if (inputUserName.validity.tooShort) {
+    inputUserName.setCustomValidity('Введите больше символов');
+  } else if (inputUserName.validity.tooLong) {
+    inputUserName.setCustomValidity('Слишком много символов');
+  } else if (inputUserName.validity.valueMissing) {
+    inputUserName.setCustomValidity('Обязательное поле');
+  }
+});
+
+
+// Изменение цвета персонажа, глаз, файербола
+
+var setupWizardCoat = setupWizardForm.querySelector('.wizard-coat');
+var setupWizardEyes = setupWizardForm.querySelector('.wizard-eyes');
+var setupFireball = setupWizardForm.querySelector('.setup-fireball-wrap');
+
+setupWizardCoat.addEventListener('click', function () {
+  setupWizardCoat.setAttribute('style', 'fill: ' + getRandomElement(COAT_COLORS));
+});
+
+setupWizardEyes.addEventListener('click', function () {
+  setupWizardEyes.setAttribute('style', 'fill: ' + getRandomElement(EYES_COLORS));
+});
+
+setupFireball.addEventListener('click', function () {
+  setupFireball.setAttribute('style', 'background-color: ' + getRandomElement(FFIREBAL_COLORS));
+});
